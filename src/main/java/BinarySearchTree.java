@@ -26,8 +26,15 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> imp
     }
 
     private boolean contains(T value, BinaryNode<T> curNode) {
-        //TODO
-        return false;
+        if( curNode == null )
+            return false;
+        else if ( curNode.value == value)
+            return true;
+        
+        int compareResult = value.compareTo( curNode.value );
+        if( compareResult < 0 )
+            return contains(value, curNode.left);
+        return contains( value, curNode.right );
     }
 
     @Override
