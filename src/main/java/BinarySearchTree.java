@@ -1,10 +1,14 @@
 public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> implements Tree<T>{
+   
+    public Counter counter = new Counter();
+
     @Override
     public void add(T data) {
         this.root = add(data, root);
     }
 
     protected BinaryNode<T> add(T value, BinaryNode<T> curNode) {
+        counter.incrementCounter();
         // Insérer si position courante est une feuille
         if( curNode == null )
             return new BinaryNode<T>( value );
@@ -26,6 +30,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> imp
     }
 
     private boolean contains(T value, BinaryNode<T> curNode) {
+        counter.incrementCounter();
         if( curNode == null )
             return false;
         else if ( curNode.value == value)

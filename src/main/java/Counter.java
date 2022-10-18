@@ -1,3 +1,11 @@
 public class Counter {
-    //TODO
+    private int operationCounter = 0;
+
+    public int getCounter(){
+        return operationCounter;
+    }
+
+    public void incrementCounter(){
+        operationCounter++;
+    }
 }

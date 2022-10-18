@@ -5,6 +5,7 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
     }
 
     protected BinaryNode<T> add(T value, BinaryNode<T> curNode) {
+        counter.incrementCounter();
         if( curNode == null )
             return new BinaryNode<>( value );
         int compareResult = value.compareTo( curNode.value );
@@ -41,6 +42,7 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
     }
 
     private BinaryNode<T> balance( BinaryNode<T> curNode ){
+        counter.incrementCounter();
         if( curNode == null )
             return curNode;
         if( curNode.left.height - curNode.right.height > 1 )
@@ -52,7 +54,7 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
         }
         else if( curNode.right.height - curNode.left.height > 1 )
         {
-            if( curNode.right.right.height >= curNode.right.left.height ) )
+            if( curNode.right.right.height >= curNode.right.left.height )
                 curNode = rotateWithRightChild( curNode );
             else
                 curNode = doubleWithRightChild( curNode );
@@ -63,6 +65,7 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 
     // Gauche - Gauche
     private BinaryNode<T> rotateWithLeftChild( BinaryNode<T> k2 ){
+        counter.incrementCounter();
         BinaryNode<T> k1 = k2.left;
         k2.left = k1.right;
         k1.right = k2;
@@ -73,15 +76,15 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
     }
 
     // Gauche - Droite
-    private BinaryNode<T> doubleWithLeftChild( BinaryNode<T> k3 )
-    {
+    private BinaryNode<T> doubleWithLeftChild( BinaryNode<T> k3 ){
+        counter.incrementCounter();
         k3.left = rotateWithRightChild( k3.left );
         return rotateWithLeftChild( k3 );
     }
 
     // Droite - Droite
-    private BinaryNode<T> rotateWithRightChild( BinaryNode<T> k1 )
-    {
+    private BinaryNode<T> rotateWithRightChild( BinaryNode<T> k1 ){
+        counter.incrementCounter();
         BinaryNode<T> k2 = k1.right;
         k1.right = k2.left;
         k2.left = k1;
@@ -92,8 +95,8 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
     }
 
     // Droite - Gauche
-    private BinaryNode<T> doubleWithRightChild( BinaryNode<T> k1 )
-    {
+    private BinaryNode<T> doubleWithRightChild( BinaryNode<T> k1 ){
+        counter.incrementCounter();
         k1.right = rotateWithLeftChild( k1.right );
         return rotateWithRightChild( k1 );
     }
