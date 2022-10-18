@@ -8,4 +8,8 @@ public class Counter {
     public void incrementCounter(){
         operationCounter++;
     }
+
+    public void resetCounter(){
+        operationCounter = 0;
+    }
 }
