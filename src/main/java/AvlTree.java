@@ -45,21 +45,21 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
         counter.incrementCounter();
         if( curNode == null )
             return curNode;
-        if( curNode.left.height - curNode.right.height > 1 )
+        if( height(curNode.left) - height(curNode.right) > 1 )
         {
-            if( curNode.left.left.height >= curNode.left.right.height )
+            if( height(curNode.left.left) >= height(curNode.left.right) )
                 curNode = rotateWithLeftChild( curNode );
             else
                 curNode = doubleWithLeftChild( curNode );
         }
-        else if( curNode.right.height - curNode.left.height > 1 )
+        else if( height(curNode.right) - height(curNode.left) > 1 )
         {
-            if( curNode.right.right.height >= curNode.right.left.height )
+            if( height(curNode.right.right) >= height(curNode.right.left) )
                 curNode = rotateWithRightChild( curNode );
             else
                 curNode = doubleWithRightChild( curNode );
         }
-        curNode.height = Math.max( curNode.left.height, curNode.right.height ) + 1;
+        curNode.height = Math.max( height(curNode.left), height(curNode.right) ) + 1;
         return curNode;
     }
 
@@ -70,8 +70,8 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
         k2.left = k1.right;
         k1.right = k2;
         // Mettre à jour les hauteurs à la rotation
-        k2.height = Math.max( k2.left.height, k2.right.height ) + 1;
-        k1.height = Math.max( k1.left.height, k2.height ) + 1;
+        k2.height = Math.max( height(k2.left), height(k2.right) ) + 1;
+        k1.height = Math.max( height(k1.left), k2.height ) + 1;
         return k1;
     }
 
@@ -89,8 +89,8 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
         k1.right = k2.left;
         k2.left = k1;
         // Mettre à jour les hauteurs à la rotation
-        k1.height = Math.max( k1.left.height, k1.right.height ) + 1;
-        k2.height = Math.max( k2.right.height, k1.height ) + 1;
+        k1.height = Math.max( height(k1.left), height(k1.right) ) + 1;
+        k2.height = Math.max( height(k2.right), k1.height ) + 1;
         return k2;
     }
 
@@ -100,4 +100,9 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
         k1.right = rotateWithLeftChild( k1.right );
         return rotateWithRightChild( k1 );
     }
+
+    private int height( BinaryNode<T> t )
+    {
+        return t == null ? -1 : t.height;
+    }       
 }
