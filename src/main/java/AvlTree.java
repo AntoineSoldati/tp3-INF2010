@@ -1,44 +1,12 @@
 public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
     @Override
-    public void add(T value) {
-        this.root = add(value, this.root);
-    }
-
     protected BinaryNode<T> add(T value, BinaryNode<T> curNode) {
-        counter.incrementCounter();
-        if( curNode == null )
-            return new BinaryNode<>( value );
-        int compareResult = value.compareTo( curNode.value );
-        if( compareResult < 0 )
-            curNode.left = add( value, curNode.left );
-        else if( compareResult > 0 )
-            curNode.right = add( value, curNode.right );
-        else
-            ; // Pas de doublons
-        return balance( curNode );
+        return balance(super.add(value, curNode));
     }
 
     @Override
-    public void remove(T value) {
-        this.root = remove(value, this.root);
-    }
-
     protected BinaryNode<T> remove(T value, BinaryNode<T> curNode) {
-        if( curNode == null )
-            return curNode; // Item not found; do nothing
-        int compareResult = value.compareTo( curNode.value );
-        if( compareResult < 0 )
-            curNode.left = remove( value, curNode.left );
-        else if( compareResult > 0 )
-            curNode.right = remove( value, curNode.right );
-        else if( curNode.left != null && curNode.right != null ) // Two children
-        {
-            curNode.value = findMin( curNode.right ).value;
-            curNode.right = remove( curNode.value, curNode.right );
-        }
-        else
-            curNode = ( curNode.left != null ) ? curNode.left : curNode.right;
-        return balance( curNode );
+        return balance( super.remove(value, curNode));
     }
 
     private BinaryNode<T> balance( BinaryNode<T> curNode ){
