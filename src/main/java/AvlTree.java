@@ -53,7 +53,6 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 
     // Gauche - Droite
     private BinaryNode<T> doubleWithLeftChild( BinaryNode<T> k3 ){
-        counter.incrementCounter();
         k3.left = rotateWithRightChild( k3.left );
         return rotateWithLeftChild( k3 );
     }
@@ -72,7 +71,6 @@ public class AvlTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 
     // Droite - Gauche
     private BinaryNode<T> doubleWithRightChild( BinaryNode<T> k1 ){
-        counter.incrementCounter();
         k1.right = rotateWithLeftChild( k1.right );
         return rotateWithRightChild( k1 );
     }

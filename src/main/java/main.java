@@ -50,19 +50,19 @@ public class main {
         }
 
         //Write to file for plotting graphs
-        File fileBstInsertion = new File("bstInsertion.txt");
+        File fileBstInsertion = new File("bstInsertion.csv");
         fileBstInsertion.createNewFile();
 
-        File fileAvlInsertion = new File("avlInsertion.txt");
+        File fileAvlInsertion = new File("avlInsertion.csv");
         fileAvlInsertion.createNewFile();
 
-        File fileBstSearch = new File("bstSearch.txt");
+        File fileBstSearch = new File("bstSearch.csv");
         fileBstSearch.createNewFile();
 
-        File fileAvlSearch = new File("avlSearch.txt");
+        File fileAvlSearch = new File("avlSearch.csv");
         fileAvlSearch.createNewFile();
 
-        File fileBstInsertionWorst = new File("bstInsertionWorst.txt");
+        File fileBstInsertionWorst = new File("bstInsertionWorst.csv");
         fileBstInsertionWorst.createNewFile();
 
         writeToFile(fileBstInsertion, csvBstInsertion);
@@ -71,13 +71,29 @@ public class main {
         writeToFile(fileAvlSearch, csvAvlSearch);
         writeToFile(fileBstInsertionWorst, csvBstInsertionWorst);
     }
+   /* CSVWriter writer = new CSVWriter(outputfile);
+
+    // adding header to csv
+    String[] header = { "Name", "Class", "Marks" };
+        writer.writeNext(header);
+
+    // add data to csv
+    String[] data1 = { "Aman", "10", "620" };
+        writer.writeNext(data1);
+    String[] data2 = { "Suraj", "10", "630" };
+        writer.writeNext(data2);*/
+
 
     private static void writeToFile(File file, ArrayList<String> csv) throws IOException{
         if (file.exists()){
             try(FileWriter filewriter = new FileWriter(file);){
-                for (int i = 0; i < csv.size(); i++){
+                for (int i = 0; i < csv.size(); i+=3){
                     filewriter.write(csv.get(i));
-                    filewriter.write(";");
+                    filewriter.write(",");
+                    filewriter.write(csv.get(i));
+                    filewriter.write(",");
+                    filewriter.write(csv.get(i));
+                    //filewriter.writeNext(",");
                 }
                 filewriter.flush();
                 filewriter.close();
