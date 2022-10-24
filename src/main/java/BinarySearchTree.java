@@ -11,15 +11,13 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> imp
         counter.incrementCounter();
         // Insérer si position courante est une feuille
         if( curNode == null )
-            return new BinaryNode<T>( value );
+            return new BinaryNode<>( value );
         // Sinon trouver position
         int compareResult = value.compareTo( curNode.value );
         if(compareResult < 0 )
             curNode.left = add( value, curNode.left );
         else if( compareResult > 0 )
             curNode.right = add( value, curNode.right );
-        else
-            ; // Rejeter en cas de doublon
         return curNode;
 
     }
