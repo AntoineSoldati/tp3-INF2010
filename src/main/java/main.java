@@ -12,10 +12,10 @@ public class main {
     final static Timer TIMER = new Timer();
     public static void main(String[] args) throws IOException {
 
-        ArrayList<Integer> insertedValues = new ArrayList<Integer>();
+        ArrayList<Integer> insertedValues = new ArrayList<>();
 
-        AvlTree<Integer> avl = new AvlTree<Integer>();
-        BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+        AvlTree<Integer> avl = new AvlTree<>();
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
          
         ArrayList<String> csvBstInsertion = new ArrayList<>();
         ArrayList<String> csvBstSearch = new ArrayList<>();
@@ -39,7 +39,7 @@ public class main {
             insertedValues.add(value);
             computeInsertionStats(value, bst, csvBstInsertion, i);
             computeInsertionStats(value, avl, csvAvlInsertion, i);
-            computeInsertionStats(i, bst, csvBstInsertionWorst, i);
+            //computeInsertionStats(i, bst, csvBstInsertionWorst, i);
         }
         
         //Search
@@ -71,18 +71,6 @@ public class main {
         writeToFile(fileAvlSearch, csvAvlSearch);
         writeToFile(fileBstInsertionWorst, csvBstInsertionWorst);
     }
-   /* CSVWriter writer = new CSVWriter(outputfile);
-
-    // adding header to csv
-    String[] header = { "Name", "Class", "Marks" };
-        writer.writeNext(header);
-
-    // add data to csv
-    String[] data1 = { "Aman", "10", "620" };
-        writer.writeNext(data1);
-    String[] data2 = { "Suraj", "10", "630" };
-        writer.writeNext(data2);*/
-
 
     private static void writeToFile(File file, ArrayList<String> csv) throws IOException{
         if (file.exists()){
@@ -90,13 +78,12 @@ public class main {
                 for (int i = 0; i < csv.size(); i+=3){
                     filewriter.write(csv.get(i));
                     filewriter.write(",");
-                    filewriter.write(csv.get(i));
+                    filewriter.write(csv.get(i+1));
                     filewriter.write(",");
-                    filewriter.write(csv.get(i));
-                    //filewriter.writeNext(",");
+                    filewriter.write(csv.get(i+2));
+                    filewriter.write(",\n");
                 }
                 filewriter.flush();
-                filewriter.close();
             }
         }
     }
@@ -105,7 +92,7 @@ public class main {
         Integer nodeCounter = index + 1;
         
         TIMER.timerInit();
-        tree.counter.resetCounter();
+        //tree.counter.resetCounter();
         tree.add(insertedValue);
         Integer counter = tree.counter.getCounter();
         Long time = TIMER.getTimerValue();
@@ -117,7 +104,7 @@ public class main {
 
     private static void computeSearchStats(Integer value, BinarySearchTree<Integer> tree, ArrayList<String> csv, Integer index){        
         TIMER.timerInit();
-        tree.counter.resetCounter();
+        //tree.counter.resetCounter();
         tree.contains(value);
         Integer counter = tree.counter.getCounter();
         Long time = TIMER.getTimerValue();
