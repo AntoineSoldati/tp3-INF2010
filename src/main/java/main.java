@@ -16,20 +16,24 @@ public class main {
 
         AvlTree<Integer> avl = new AvlTree<>();
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        AvlTree<Integer> worstAvl = new AvlTree<>();
+        BinarySearchTree<Integer> worstBst = new BinarySearchTree<>();
          
         ArrayList<String> csvBstInsertion = new ArrayList<>();
-        ArrayList<String> csvBstSearch = new ArrayList<>();
-        ArrayList<String> csvBstInsertionWorst = new ArrayList<>();
-        writeCsvHeaders(csvBstSearch);
+        /*ArrayList<String> csvBstSearch = new ArrayList<>();
+        ArrayList<String> csvBstInsertionWorst = new ArrayList<>();*/
+
         writeCsvHeaders(csvBstInsertion);
-        writeCsvHeaders(csvBstInsertionWorst);
+        /*writeCsvHeaders(csvBstSearch);
+        writeCsvHeaders(csvBstInsertionWorst);*/
 
         ArrayList<String> csvAvlInsertion = new ArrayList<>();
-        ArrayList<String> csvAvlSearch = new ArrayList<>();
-        ArrayList<String> csvAvlInsertionWorst = new ArrayList<>();
-        writeCsvHeaders(csvAvlSearch);
+        /*ArrayList<String> csvAvlSearch = new ArrayList<>();
+        ArrayList<String> csvAvlInsertionWorst = new ArrayList<>();*/
+
         writeCsvHeaders(csvAvlInsertion);
-        writeCsvHeaders(csvAvlInsertionWorst);
+        /*writeCsvHeaders(csvAvlSearch);
+        writeCsvHeaders(csvAvlInsertionWorst);*/
 
         //Insertion
         for (Integer i = 0; i < 100; i++){
@@ -44,32 +48,32 @@ public class main {
         
         //Search
         Integer index = 1;
-        for (Integer value : insertedValues) {
+        /*for (Integer value : insertedValues) {
             computeSearchStats(value, bst, csvBstSearch, index);
             computeSearchStats(value, avl, csvAvlSearch, index++);
-        }
+        }*/
 
         //Write to file for plotting graphs
         File fileBstInsertion = new File("bstInsertion.csv");
-        fileBstInsertion.createNewFile();
+        //fileBstInsertion.createNewFile();
 
         File fileAvlInsertion = new File("avlInsertion.csv");
-        fileAvlInsertion.createNewFile();
+        //fileAvlInsertion.createNewFile();
 
         File fileBstSearch = new File("bstSearch.csv");
-        fileBstSearch.createNewFile();
+        //fileBstSearch.createNewFile();
 
         File fileAvlSearch = new File("avlSearch.csv");
-        fileAvlSearch.createNewFile();
+        //fileAvlSearch.createNewFile();
 
         File fileBstInsertionWorst = new File("bstInsertionWorst.csv");
-        fileBstInsertionWorst.createNewFile();
+        //fileBstInsertionWorst.createNewFile();
 
         writeToFile(fileBstInsertion, csvBstInsertion);
         writeToFile(fileAvlInsertion, csvAvlInsertion);
-        writeToFile(fileBstSearch, csvBstSearch);
+        /*writeToFile(fileBstSearch, csvBstSearch);
         writeToFile(fileAvlSearch, csvAvlSearch);
-        writeToFile(fileBstInsertionWorst, csvBstInsertionWorst);
+        writeToFile(fileBstInsertionWorst, csvBstInsertionWorst);*/
     }
 
     private static void writeToFile(File file, ArrayList<String> csv) throws IOException{
@@ -89,36 +93,34 @@ public class main {
     }
 
     private static void computeInsertionStats(Integer insertedValue, BinarySearchTree<Integer> tree, ArrayList<String> csv, Integer index){
-        Integer nodeCounter = index + 1;
+        int nodeCounter = index + 1;
         
         TIMER.timerInit();
         //tree.counter.resetCounter();
         tree.add(insertedValue);
-        Integer counter = tree.counter.getCounter();
-        Long time = TIMER.getTimerValue();
+        int counter = tree.counter.getCounter();
+        long time = TIMER.getTimerValue();
         
-        csv.add(nodeCounter.toString());
-        csv.add(counter.toString());
-        csv.add(Integer.valueOf(time.intValue()).toString()); //La conversion de long en int est valide puisque les temps d'exécutions sont rapides et les valeurs petites
+        csv.add(Integer.toString(nodeCounter));
+        csv.add(Integer.toString(counter));
+        csv.add(Integer.valueOf((int) time).toString()); //La conversion de long en int est valide puisque les temps d'exécutions sont rapides et les valeurs petites
     }
 
     private static void computeSearchStats(Integer value, BinarySearchTree<Integer> tree, ArrayList<String> csv, Integer index){        
         TIMER.timerInit();
         //tree.counter.resetCounter();
         tree.contains(value);
-        Integer counter = tree.counter.getCounter();
-        Long time = TIMER.getTimerValue();
+        int counter = tree.counter.getCounter();
+        long time = TIMER.getTimerValue();
         
         csv.add(index.toString());
-        csv.add(counter.toString());
-        csv.add(Integer.valueOf(time.intValue()).toString()); //La conversion de long en int est valide puisque les temps d'exécutions sont rapides et les valeurs petites
+        csv.add(Integer.toString(counter));
+        csv.add(Integer.valueOf((int) time).toString()); //La conversion de long en int est valide puisque les temps d'exécutions sont rapides et les valeurs petites
     }
 
-    private static ArrayList<String> writeCsvHeaders(ArrayList<String> csv){
+    private static void writeCsvHeaders(ArrayList<String> csv){
         csv.add("Number Of Node");
         csv.add("Number of operation");
         csv.add("Execution Time");
-
-        return csv;
     }
 }
