@@ -18,11 +18,9 @@ public class main {
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
          
         ArrayList<String> csvBstInsertion = new ArrayList<>();
-
         writeCsvHeaders(csvBstInsertion);
 
         ArrayList<String> csvAvlInsertion = new ArrayList<>();
-
         writeCsvHeaders(csvAvlInsertion);
 
         //Insertion
@@ -44,12 +42,7 @@ public class main {
         if (file.exists()){
             try(FileWriter filewriter = new FileWriter(file);){
                 for (int i = 0; i < csv.size(); i+=3){
-                    filewriter.write(csv.get(i));
-                    filewriter.write(",");
-                    filewriter.write(csv.get(i+1));
-                    filewriter.write(",");
-                    filewriter.write(csv.get(i+2));
-                    filewriter.write(",\n");
+                    filewriter.write(csv.get(i) + ", " + csv.get(i+1) + ", " + csv.get(i+2) + ",\n");
                 }
                 filewriter.flush();
             }
@@ -58,7 +51,6 @@ public class main {
 
     private static void computeInsertionStats(Integer insertedValue, BinarySearchTree<Integer> tree, ArrayList<String> csv, Integer index){
         int nodeCounter = index + 1;
-        
         TIMER.timerInit();
         tree.add(insertedValue);
         int counter = tree.counter.getCounter();
