@@ -7,34 +7,42 @@ import java.util.ArrayList;
 
 public class main {
 
-    final static int MAX = 500;
+    final static int MAX = 500000;
     final static int MIN = 0;
     final static Timer TIMER = new Timer();
     public static void main(String[] args) throws IOException {
 
         ArrayList<Integer> insertedValues = new ArrayList<>();
 
-        AvlTree<Integer> avl = new AvlTree<>();
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        AvlTree<Integer> avl = new AvlTree<>();
+        BinarySearchTree<Integer> bstWorst = new BinarySearchTree<>();
+        AvlTree<Integer> avlWorst = new AvlTree<>();
 
         ArrayList<String> csvBstInsertion = new ArrayList<>();
         ArrayList<String> csvBstSearch = new ArrayList<>();
+        ArrayList<String> csvBstInsertionWorst = new ArrayList<>();
         writeCsvHeaders(csvBstInsertion);
         writeCsvHeaders(csvBstSearch);
+        writeCsvHeaders(csvBstInsertionWorst);
 
         ArrayList<String> csvAvlInsertion = new ArrayList<>();
         ArrayList<String> csvAvlSearch = new ArrayList<>();
+        ArrayList<String> csvAvlInsertionWorst = new ArrayList<>();
         writeCsvHeaders(csvAvlInsertion);
         writeCsvHeaders(csvAvlSearch);
+        writeCsvHeaders(csvAvlInsertionWorst);
 
         // Insertion
-        for (Integer i = 0; i < 100; i++){
+        for (Integer i = 0; i < 10000; i++){
             // Méthode de trouver un nombre random trouvé sur :
             // https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
             Integer value = ThreadLocalRandom.current().nextInt(MIN, MAX + 1);
             insertedValues.add(value);
             computeInsertionStats(value, bst, csvBstInsertion, i);
             computeInsertionStats(value, avl, csvAvlInsertion, i);
+            computeInsertionStats(i, bstWorst, csvBstInsertionWorst, i);
+            computeInsertionStats(i, avlWorst, csvAvlInsertionWorst, i);
         }
 
         bst.counter.resetCounter();
@@ -51,8 +59,11 @@ public class main {
         // Write to file for plotting graphs
         writeToFile(new File("bstInsertion.csv"), csvBstInsertion);
         writeToFile(new File("avlInsertion.csv"), csvAvlInsertion);
-        writeToFile(new File("bstSearch.csv"), csvBstInsertion);
+        writeToFile(new File("bstSearch.csv"), csvBstSearch);
         writeToFile(new File("avlSearch.csv"), csvAvlSearch);
+
+        writeToFile(new File("bstInsertionWorst.csv"), csvBstInsertionWorst);
+        writeToFile(new File("avlInsertionWorst.csv"), csvAvlInsertionWorst);
     }
 
     private static void writeToFile(File file, ArrayList<String> csv) throws IOException{
