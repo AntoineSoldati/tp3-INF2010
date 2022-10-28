@@ -97,7 +97,7 @@ public class main {
         long time = TIMER.getTimerValue();
         
         csv.add(index.toString());
-        csv.add(Integer.toString(counter));
+        csv.add(Integer.toString(counter/index)); // divided by index to get average number of steps to search for 1 node
         csv.add(Integer.valueOf((int) time).toString()); // La conversion de long en int est valide puisque les temps d'exécutions sont rapides et les valeurs petites
     }
 
