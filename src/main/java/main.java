@@ -28,7 +28,7 @@ public class main {
         writeCsvHeaders(csvAvlSearch);
 
         // Insertion
-        for (Integer i = 0; i < 100; i++){
+        for (Integer i = 0; i < 5000; i++){
             // Méthode de trouver un nombre random trouvé sur :
             // https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
             Integer value = ThreadLocalRandom.current().nextInt(MIN, MAX + 1);
